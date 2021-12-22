@@ -1,0 +1,36 @@
+{
+  "lunch": {
+    "burger": [
+      {
+        "store": "제스티살룬",
+        "path": "https://place.map.kakao.com/1965582130"
+      },
+      {
+        "store": "엘더버거",
+        "path": "https://place.map.kakao.com/2100429143"
+      }
+    ],
+    "china": [
+      {
+        "store": "제제",
+        "path": "https://place.map.kakao.com/1158002348"
+      },
+      {
+        "store": "교동짬뽕",
+        "path": "https://place.map.kakao.com/1661178627"
+      }
+    ],
+    "korea": [
+      {
+        "store": "전주콩나물국밥",
+        "path": "https://place.map.kakao.com/21237863"
+      }
+    ],
+    "fast": [
+      {
+        "store": "써브웨이",
+        "path": "https://place.map.kakao.com/1458192140"
+      }
+    ]
+  }
+}
