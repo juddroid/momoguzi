@@ -8,6 +8,7 @@ import { VALID_KEYWORD } from './const';
 import DATA from './data.json';
 
 const app = express();
+const PORT = app.set('port', process.env.PORT || 3000);
 const slackEvents = createEventAdapter(CONFIG.SIGNING_SECRET);
 const webClient = new WebClient(CONFIG.BOT_USER_OAUTH_ACCESS_TOKEN);
 
@@ -41,6 +42,6 @@ slackEvents.on('message', async (e) => {
 
 app.use('/slack/events', slackEvents.requestListener());
 
-createServer(app).listen(3000, () => {
+createServer(app).listen(PORT, () => {
   console.log('run slack bot');
 });

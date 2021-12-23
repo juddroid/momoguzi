@@ -4,8 +4,8 @@
   "description": "momoguzi",
   "main": "index.js",
   "scripts": {
-    "dev": "ts-node-dev ./src/index.ts --dev",
-    "start": "ts-node ./src/index.ts --prod"
+    "start": "ts-node src/index.ts",
+    "dev": "nodemon -x ts-node src/index.ts"
   },
   "repository": {
     "type": "git",
@@ -26,6 +26,7 @@
   "dependencies": {
     "@slack/events-api": "^3.0.1",
     "@slack/web-api": "^6.5.1",
-    "express": "^4.17.2"
+    "express": "^4.17.2",
+    "nodemon": "^2.0.15"
   }
 }
