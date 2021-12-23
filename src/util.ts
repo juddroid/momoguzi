@@ -3,6 +3,8 @@ export const isValid = (keyword: string, keywordList: string[]): boolean => {
   return Boolean(keywordList.find((keyword) => keyword === str));
 };
 
+export const isBot = (botID: string | undefined): boolean => Boolean(botID);
+
 interface StoreProps {
   store: string;
   path: string;
