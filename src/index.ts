@@ -2,15 +2,16 @@ import express from 'express';
 import { WebClient } from '@slack/web-api';
 import { createEventAdapter } from '@slack/events-api';
 import { createServer } from 'http';
-import CONFIG from '../config/bot.json';
 import { getListFromJSON, getRandomNumber, isBot, isValid } from './util';
 import { VALID_KEYWORD } from './const';
 import DATA from './data.json';
+import dotenv from 'dotenv';
 
 const app = express();
-const PORT = app.set('port', process.env.PORT || 3000);
-const slackEvents = createEventAdapter(CONFIG.SIGNING_SECRET);
-const webClient = new WebClient(CONFIG.BOT_USER_OAUTH_ACCESS_TOKEN);
+dotenv.config();
+const PORT = process.env.PORT || 3000;
+const slackEvents = createEventAdapter(process.env.SIGNING_SECRET);
+const webClient = new WebClient(process.env.BOT_USER_OAUTH_ACCESS_TOKEN);
 
 slackEvents.on('message', async (e) => {
   const { text, channel, bot_id } = e;
