@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "npx ts-node-dev ./src/index.ts --dev",
-    "start": " npx ts-node-dev ./src/index.ts --prod"
+    "start": " npx ts-node ./src/index.ts --prod"
   },
   "repository": {
     "type": "git",
