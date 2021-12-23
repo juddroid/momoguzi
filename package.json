@@ -4,8 +4,8 @@
   "description": "momoguzi",
   "main": "index.js",
   "scripts": {
-    "dev": "npx ts-node-dev ./src/index.ts --dev",
-    "start": " npx ts-node ./src/index.ts --prod"
+    "dev": "ts-node-dev ./src/index.ts --dev",
+    "start": "ts-node ./src/index.ts --prod"
   },
   "repository": {
     "type": "git",
