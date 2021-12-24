@@ -59,10 +59,10 @@ slackEvents.on('message', async (e) => {
   }
 });
 
-// app.post('/slack/events', (req, res) => {
-//   console.log(req.body);
-//   res.json(req.body);
-// });
+app.post('/slack/events', (req, res) => {
+  console.log(req.body);
+  res.json(req.body);
+});
 
 app.use('/slack/events', slackEvents.requestListener());
 
