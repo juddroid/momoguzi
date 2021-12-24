@@ -27,35 +27,30 @@ const createError = () => {
 };
 
 slackEvents.on('message', async (e) => {
-  try {
-    const { text, channel, bot_id } = e;
-    if (!text) return;
+  const { text, channel, bot_id } = e;
+  if (!text) return;
 
-    const keyword = isValid(text, VALID_KEYWORD);
-    const bot = isBot(bot_id);
+  const keyword = isValid(text, VALID_KEYWORD);
+  const bot = isBot(bot_id);
 
-    if (bot) return;
-    if (keyword) {
-      const list = getListFromJSON(DATA.lunch);
-      const idx = getRandomNumber(list);
-      const { store, path } = list[idx];
+  if (bot) return;
+  if (keyword) {
+    const list = getListFromJSON(DATA.lunch);
+    const idx = getRandomNumber(list);
+    const { store, path } = list[idx];
 
-      webClient.chat.postMessage({
-        text: `오늘은 ${store} 어때요?\r${path}`,
-        channel: channel,
-      });
-      return;
-    }
-    if (!keyword) {
-      webClient.chat.postMessage({
-        text: `hint: 밥, 뭐먹지, 점심, 점심뭐먹지, 배고파`,
-        channel: channel,
-      });
-      return;
-    }
-    logger.info(e);
-  } catch (error) {
-    logger.error(error.message);
+    webClient.chat.postMessage({
+      text: `오늘은 ${store} 어때요?\r${path}`,
+      channel: channel,
+    });
+    return;
+  }
+  if (!keyword) {
+    webClient.chat.postMessage({
+      text: `hint: 밥, 뭐먹지, 점심, 점심뭐먹지, 배고파`,
+      channel: channel,
+    });
+    return;
   }
 });
 
