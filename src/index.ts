@@ -18,7 +18,7 @@ const logger = createLogger({
 });
 dotenv.config();
 const PORT = process.env.PORT || 3000;
-const slackEvents = createEventAdapter(process.env.SIGNING_SECRET);
+const slackEvents = createEventAdapter(process.env.SIGNING_SECRET_TICTOC);
 const webClient = new WebClient(process.env.BOT_USER_OAUTH_ACCESS_TOKEN);
 
 const createError = () => {
@@ -59,10 +59,10 @@ slackEvents.on('message', async (e) => {
   }
 });
 
-app.post('/slack/events', (req, res) => {
-  console.log(req.body);
-  res.json(req.body);
-});
+// app.post('/slack/events', (req, res) => {
+//   console.log(req.body);
+//   res.json(req.body);
+// });
 
 app.use('/slack/events', slackEvents.requestListener());
 
