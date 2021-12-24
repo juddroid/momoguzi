@@ -3,10 +3,10 @@ import { WebClient } from '@slack/web-api';
 import { createEventAdapter } from '@slack/events-api';
 import { createServer } from 'http';
 import { getListFromJSON, getRandomNumber, isBot, isValid } from './util';
-import { VALID_KEYWORD } from './const';
 import DATA from './data.json';
 import dotenv from 'dotenv';
 import { createLogger, transports } from 'winston';
+import { VALID_KEYWORD } from './const';
 
 const app = express();
 const logger = createLogger({
