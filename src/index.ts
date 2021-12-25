@@ -67,6 +67,7 @@ slackEvents.on('message', async (e) => {
 // app.use('/slack/events', slackEvents.requestListener());
 app.post('/github/payload', (req, res) => {
   console.log(req.body);
+  res.json(req.body);
 });
 
 createServer(app).listen(PORT, () => {
