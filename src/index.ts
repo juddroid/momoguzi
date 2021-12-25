@@ -64,10 +64,10 @@ slackEvents.on('message', async (e) => {
 //   res.json(req.body);
 // });
 
-const webhook = () => console.log();
-
 app.use('/slack/events', slackEvents.requestListener());
-app.use('/github/payload', webhook);
+app.post('/github/payload', (req, res) => {
+  console.log(req.body);
+});
 
 createServer(app).listen(PORT, () => {
   console.log(`momoguzi starts on ${PORT}`);
