@@ -47,7 +47,7 @@ slackEvents.on('message', async (e) => {
       //   channel: channel,
       // });
 
-      getNotionData(keyword, channel);
+      getNotionData(text, channel);
 
       return;
     }
@@ -64,7 +64,7 @@ slackEvents.on('message', async (e) => {
   }
 });
 
-const getNotionData = (keyword, channel) => {
+const getNotionData = (text, channel) => {
   axios({
     method: 'POST',
     url: 'https://api.notion.com/v1/databases/f1ee04673b2a424aadd87cd4f3b9c014/query',
@@ -94,7 +94,7 @@ const getNotionData = (keyword, channel) => {
     const idx = getRandomNumber(dataList);
     const { store, path } = dataList[idx];
     webClient.chat.postMessage({
-      text: `오늘은 ${store} 어때요?\r${path}\ridx: ${idx}\rkeyword:${keyword}`,
+      text: `오늘은 ${store} 어때요?\r${path}\ridx: ${idx}\rtext:${text}`,
       channel: channel,
     });
   });
