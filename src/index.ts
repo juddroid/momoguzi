@@ -61,6 +61,7 @@ slackEvents.on('message', async (e) => {
     logger.info(e);
   } catch (error) {
     logger.error(error.message);
+    throw new Error(error.message);
   }
 });
 
