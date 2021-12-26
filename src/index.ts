@@ -31,6 +31,7 @@ const createError = () => {
 slackEvents.on('message', async (e) => {
   try {
     const { text, channel, bot_id } = e;
+    logger.info(e);
     if (!text) return;
 
     const keyword = isValid(text, VALID_KEYWORD);
@@ -58,7 +59,6 @@ slackEvents.on('message', async (e) => {
       });
       return;
     }
-    logger.info(e);
   } catch (error) {
     logger.error(error.message);
     throw new Error(error.message);
