@@ -38,20 +38,7 @@ slackEvents.on('message', async (e) => {
     const bot = isBot(bot_id);
 
     if (bot) return;
-    if (keyword) {
-      // const list = getListFromJSON(DATA.lunch);
-      // const idx = getRandomNumber(list);
-      // const { store, path } = list[idx];
-
-      // webClient.chat.postMessage({
-      //   text: `오늘은 ${store} 어때요?\r${path}`,
-      //   channel: channel,
-      // });
-
-      getNotionData(text, channel);
-
-      return;
-    }
+    if (keyword) getNotionData(text, channel);
     if (!keyword) {
       webClient.chat.postMessage({
         text: `hint: 밥, 뭐먹지, 점심, 점심뭐먹지, 배고파`,
