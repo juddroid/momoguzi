@@ -2,8 +2,7 @@ import express from 'express';
 import { WebClient } from '@slack/web-api';
 import { createEventAdapter } from '@slack/events-api';
 import { createServer } from 'http';
-import { getListFromJSON, getRandomNumber, isBot, isValid } from './util';
-import DATA from './data.json';
+import { getRandomNumber, isBot, isValid } from './util';
 import dotenv from 'dotenv';
 import { createLogger, transports } from 'winston';
 import { VALID_KEYWORD } from './const';
@@ -28,7 +27,7 @@ const createError = () => {
   throw new Error('___error___');
 };
 
-slackEvents.on('message', async (e) => {
+slackEvents.on('message.app_home', async (e) => {
   console.log('==== on message ====');
   try {
     const { text, channel, bot_id } = e;
