@@ -33,7 +33,7 @@ slackEvents.on('message', async (e) => {
   console.log('');
   try {
     const { text, channel, bot_id, subtype } = e;
-    logger.info(e);
+    logger.info(e.message.text);
     if (subtype === 'message_changed') return console.log('===== subtype =====');
     if (!text) return console.log('=== !text ===');
 
