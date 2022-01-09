@@ -84,7 +84,7 @@ const getNotionData = (text, channel) => {
     const idx = getRandomNumber(dataList);
     const { store, path } = dataList[idx];
     webClient.chat.postMessage({
-      text: `오늘은 ${store} 어때요?\rpath:${'path'}`,
+      text: `오늘은 ${store} 어때요?\r${path}`,
       channel: channel,
       mrkdwn: true,
     });
