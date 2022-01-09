@@ -27,11 +27,12 @@ const createError = () => {
   throw new Error('___error___');
 };
 
-slackEvents.on('message.app_home', async (e) => {
+slackEvents.on('message', async (e) => {
   console.log('==== on message ====');
   try {
-    const { text, channel, bot_id } = e;
+    const { text, channel, bot_id, subtype } = e;
     logger.info(e);
+    if (subtype === 'message_changed') return console.log('subtype');
     if (!text) return console.log('=== !text ===');
 
     const keyword = isValid(text, VALID_KEYWORD);
