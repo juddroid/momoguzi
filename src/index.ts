@@ -29,22 +29,23 @@ const createError = () => {
 };
 
 slackEvents.on('message', async (e) => {
+  console.log('==== on message ====');
   try {
     const { text, channel, bot_id } = e;
     logger.info(e);
-    if (!text) return;
+    if (!text) return console.log('=== !text ===');
 
     const keyword = isValid(text, VALID_KEYWORD);
     const bot = isBot(bot_id);
 
-    if (bot) return;
+    if (bot) return console.log('=== bot ===');
     if (keyword) getNotionData(text, channel);
     if (!keyword) {
       webClient.chat.postMessage({
         text: `hint: 밥, 뭐먹지, 점심, 점심뭐먹지, 배고파`,
         channel: channel,
       });
-      return;
+      return console.log('=== !keyword ===');
     }
   } catch (error) {
     logger.error(error.message);
@@ -78,7 +79,7 @@ const getNotionData = (text, channel) => {
         };
       })
       .filter((data) => data);
-    console.log(dataList);
+    console.log('dataList', dataList);
     const idx = getRandomNumber(dataList);
     const { store, path } = dataList[idx];
     webClient.chat.postMessage({
@@ -87,11 +88,6 @@ const getNotionData = (text, channel) => {
     });
   });
 };
-
-// app.post('/slack/events', (req, res) => {
-//   console.log(req.body);
-//   res.json(req.body);
-// });
 
 app.use('/slack/events', slackEvents.requestListener());
 
