@@ -28,11 +28,13 @@ const createError = () => {
 };
 
 slackEvents.on('message', async (e) => {
+  console.log('');
   console.log('==== on message ====');
+  console.log('');
   try {
     const { text, channel, bot_id, subtype } = e;
-    logger.info(e);
-    if (subtype === 'message_changed') return console.log('subtype');
+    logger.info(JSON.parse(e));
+    if (subtype === 'message_changed') return console.log('===== subtype =====');
     if (!text) return console.log('=== !text ===');
 
     const keyword = isValid(text, VALID_KEYWORD);
@@ -79,13 +81,13 @@ const getNotionData = (text, channel) => {
         };
       })
       .filter((data) => data);
-    console.log('dataList', dataList);
     const idx = getRandomNumber(dataList);
     const { store, path } = dataList[idx];
     webClient.chat.postMessage({
       text: `오늘은 ${store} 어때요?\r${path}\ridx: ${idx}\rtext:${text}`,
       channel: channel,
     });
+    console.log('===== postMessage =====');
   });
 };
 
