@@ -86,6 +86,7 @@ const getNotionData = (text, channel) => {
     webClient.chat.postMessage({
       text: `오늘은 ${store} 어때요?\rpath:${'path'}`,
       channel: channel,
+      mrkdwn: true,
     });
     console.log('===== postMessage =====');
   });
