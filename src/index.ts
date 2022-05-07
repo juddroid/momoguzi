@@ -33,7 +33,7 @@ slackEvents.on('message', async (e) => {
   console.log('');
   try {
     const { text, channel, bot_id, subtype } = e;
-    logger.info(JSON.parse(e));
+    logger.info(e.message);
     if (subtype === 'message_changed') return console.log('===== subtype =====');
     if (!text) return console.log('=== !text ===');
 
@@ -84,8 +84,9 @@ const getNotionData = (text, channel) => {
     const idx = getRandomNumber(dataList);
     const { store, path } = dataList[idx];
     webClient.chat.postMessage({
-      text: `오늘은 ${store} 어때요?\r${path}\ridx: ${idx}\rtext:${text}`,
+      text: `오늘은 ${store} 어때요?\r${path}`,
       channel: channel,
+      mrkdwn: true,
     });
     console.log('===== postMessage =====');
   });
