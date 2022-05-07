@@ -20,8 +20,8 @@ const logger = createLogger({
 });
 
 const PORT = process.env.PORT || 3000;
-const slackEvents = createEventAdapter(process.env.SIGNING_SECRET_TICTOC);
-const webClient = new WebClient(process.env.BOT_USER_OAUTH_ACCESS_TOKEN_TICTOC);
+const slackEvents = createEventAdapter(process.env.SIGNING_SECRET);
+const webClient = new WebClient(process.env.BOT_USER_OAUTH_ACCESS_TOKEN);
 
 const createError = () => {
   console.log('run error');
