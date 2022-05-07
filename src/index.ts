@@ -2,8 +2,7 @@ import express from 'express';
 import { WebClient } from '@slack/web-api';
 import { createEventAdapter } from '@slack/events-api';
 import { createServer } from 'http';
-import { getListFromJSON, getRandomNumber, isBot, isValid } from './util';
-import DATA from './data.json';
+import { getRandomNumber, isBot, isValid } from './util';
 import dotenv from 'dotenv';
 import { createLogger, transports } from 'winston';
 import { VALID_KEYWORD } from './const';
@@ -29,42 +28,34 @@ const createError = () => {
 };
 
 slackEvents.on('message', async (e) => {
+  console.log('');
+  console.log('==== on message ====');
+  console.log('');
   try {
-    const { text, channel, bot_id } = e;
-    if (!text) return;
+    const { text, channel, bot_id, subtype } = e;
+    logger.info(JSON.parse(e));
+    if (subtype === 'message_changed') return console.log('===== subtype =====');
+    if (!text) return console.log('=== !text ===');
 
     const keyword = isValid(text, VALID_KEYWORD);
     const bot = isBot(bot_id);
 
-    if (bot) return;
-    if (keyword) {
-      // const list = getListFromJSON(DATA.lunch);
-      // const idx = getRandomNumber(list);
-      // const { store, path } = list[idx];
-
-      // webClient.chat.postMessage({
-      //   text: `오늘은 ${store} 어때요?\r${path}`,
-      //   channel: channel,
-      // });
-
-      getNotionData(keyword, channel);
-
-      return;
-    }
+    if (bot) return console.log('=== bot ===');
+    if (keyword) getNotionData(text, channel);
     if (!keyword) {
       webClient.chat.postMessage({
         text: `hint: 밥, 뭐먹지, 점심, 점심뭐먹지, 배고파`,
         channel: channel,
       });
-      return;
+      return console.log('=== !keyword ===');
     }
-    logger.info(e);
   } catch (error) {
     logger.error(error.message);
+    throw new Error(error.message);
   }
 });
 
-const getNotionData = (keyword, channel) => {
+const getNotionData = (text, channel) => {
   axios({
     method: 'POST',
     url: 'https://api.notion.com/v1/databases/f1ee04673b2a424aadd87cd4f3b9c014/query',
@@ -90,20 +81,15 @@ const getNotionData = (keyword, channel) => {
         };
       })
       .filter((data) => data);
-    console.log(dataList);
     const idx = getRandomNumber(dataList);
     const { store, path } = dataList[idx];
     webClient.chat.postMessage({
-      text: `오늘은 ${store} 어때요?\r${path}\ridx: ${idx}\rkeyword:${keyword}`,
+      text: `오늘은 ${store} 어때요?\r${path}\ridx: ${idx}\rtext:${text}`,
       channel: channel,
     });
+    console.log('===== postMessage =====');
   });
 };
-
-// app.post('/slack/events', (req, res) => {
-//   console.log(req.body);
-//   res.json(req.body);
-// });
 
 app.use('/slack/events', slackEvents.requestListener());
 
