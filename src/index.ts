@@ -35,15 +35,24 @@ slackEvents.on('message', async (e) => {
   console.log('');
   try {
     const { text, channel, bot_id, subtype } = e;
-    logger.info(e.message);
-    if (subtype === 'message_changed') return console.log('===== subtype =====');
-    if (!text) return console.log('=== !text ===');
+
+    if (subtype === 'message_changed') {
+      return console.log('===== subtype =====');
+    }
+    if (!text) {
+      return console.log('=== !text ===');
+    }
 
     const keyword = isValid(text, VALID_KEYWORD);
     const bot = isBot(bot_id);
 
-    if (bot) return console.log('=== bot ===');
-    if (keyword) getNotionData(text, channel);
+    if (bot) {
+      return console.log('=== bot ===');
+    }
+    if (keyword) {
+      getNotionData(text, channel);
+      return;
+    }
     if (!keyword) {
       webClient.chat.postMessage({
         text: `hint: 밥, 뭐먹지, 점심, 점심뭐먹지, 배고파`,
@@ -51,8 +60,8 @@ slackEvents.on('message', async (e) => {
       });
       return console.log('=== !keyword ===');
     }
+    return console.log('=== try ===');
   } catch (error) {
-    logger.error(error.message);
     throw new Error(error.message);
   }
 });
@@ -90,7 +99,7 @@ const getNotionData = (text, channel) => {
       channel: channel,
       mrkdwn: true,
     });
-    console.log('===== postMessage =====');
+    return console.log('===== postMessage =====');
   });
 };
 
